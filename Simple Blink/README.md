@@ -1,4 +1,4 @@
-#Simple Blink
+# Simple Blink
 For the simple blink the MSP430G2553 and F5529 were selected. Both boards are similar,
 and the code for each is also very similar. The red LED for both boards is tied to pin
 1.0, so the code for each is identical. The LED was blinked via an infinite while loop
