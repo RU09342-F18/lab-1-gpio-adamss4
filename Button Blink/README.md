@@ -1,18 +1,15 @@
 # Button Blink
-Now that you have looked at blinking the LED from some built in delay, but what if we wanted to control the state of the LED by a button? You may think "Why would I need a Microcontroller to perform the job of a switch?". And that is where you come in. The bare minimum for this part of the lab is to essentially replicate a switch with your development board.
 
-# YOU NEED TO CREATE THE FOLLOWING FOLDERS
-* MSP430G2553
-* MSP(FILL IN THE PROCESSOR YOU ARE USING)
-
-## README
-Remember to replace this README with your README once you are ready to submit. I would recommend either making a copy of this file or taking a screen shot. There might be a copy of all of these README's in a folder on the top level depending on the exercise. Make sure you talk about how your button is configured (momentary or continuous. Normally open or closed. Does the button press indicate when the LED should be on or off.)
-
-## Extra Work
-What can we do to make this a little bit more worthy of needing a microcontroller.
-
-### Button Based Speed Control
-Much like the UART controlled speed, what if you could cycle between speeds based on a button press? The speed could progress through a cycle of "Off-Slow-Medium-Fast" looping back when you hit the end.
-
-### Color Change
-What if upon a button press, the LED which was blinking changed. Some of the development boards contain two LEDs, so you could swap between a Red and a Green LED.
+The Button Blink was completed on the MSP430G2553 and FR2311. The code between the two
+is nearly identical, with the exception of the port of the button, the port of the LED,
+and how the pins are set up in GPIO mode. Both the G2553 and FR2311 have both the button
+and the LED on pin 1, but the FR2311 has a two bit select to set a pin as GPIO, so the
+code P1SEL0 = 0; and P1SEL1 = 0; were used to set pin 1 as GPIO. Both boards have their
+red LED on port 1.0, but the FR2311's button is on port 1.1, so the code to set that port 
+as output is P1DIR &= ~(BIT1);. Due to the button being on port 1.1, the pull up resistor
+must also be enabled on the same port. Similar to setting the direction, the only change
+between the code of the two boards is the bit macro used. To toggle the button, the interrupt
+approach was used insead of polling. Instead of setting up a loop to poll for the button press, 
+interrupt was enabled on the port of the button for both, and an interrupt service routine was
+used to toggle the LED on or off. The ISR for both boards is similar, the only difference again
+being the port of the button.

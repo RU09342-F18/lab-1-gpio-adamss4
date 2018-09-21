@@ -1,22 +1,18 @@
 # Multiple Blink
-Now that we have blinked at least 1 LED, what about blinking multiple LEDS at the same time? The minimum that you need to develop is blinking at least two LEDs at two different rates. Although I am not going to give you a speed, you should probably pick a rate which is visible to a standard human. I really hope that you take this further and perform some of the extra work for this part of the lab exercise.
 
-
-# YOU NEED TO CREATE THE FOLLOWING FOLDERS
-* MSP430G2553
-* MSP(FILL IN WITH WHAT YOU ARE USING)
-
-## README
-Remember to replace this README with your README once you are ready to submit. I would recommend either making a copy of this file or taking a screen shot. There might be a copy of all of these README's in a folder on the top level depending on the exercise.
-
-## Extra Work
-When you take a look at the development boards, you are limited to what is built into the platform.
-
-### Even More LEDs
-Since up to this point you should have hopefully noticed that you are simply just controlling each pin on your processor. So... what is keeping you from putting an LED on each pin? Can you actually control the speed of each of these LEDs?
-
-### Patterned Lights
-If you can control a ton of LEDs, what is keeping you from having a little fun? Why not try and make something like a moving face or other moving object in lights. *CAUTION* I would only do this if you have finished the rest of the lab.
-
-### UART Pattern Control
-If you have been using UART, could you set which LEDs are on or off based off some UART command? Would you want to send an Array over UART such as [1 0 1 0] or would you want to send a byte that corresponds to the status? Can you not only say which LEDs are on, but also tell them to blink at a particular rate if they were on (so LED1 Blink every 100ms)?
+For the multiple blink, the MSP430G2553 and MSP432P401R were used. The code between the 
+two boards is similar, but there are some differences including how the watchdog timer
+is halted, how the pins are selected for GPIO mode, and the pins that actually have the
+LEDs on them also differ. The watchdog timer is stopped using a different macro than the
+G2553, but in code, it means the same thing. The G2553 used only has two LED's, a red and 
+a green, while the P401R has an RGB LED. The LEDs for the P401R are on pin 2 instead of pin 
+1, and the pin select has two bits instead of one, so to select the proper pin for GPIO, the code was
+P2SEL0 = 0;, AND P2SEL1 = 0; to ensure that pin2 was set to GPIO. Instead of two ports 
+being set as output, three were set, so all 3 RGB LEDs blink at seperate rates. The LEDs
+blink via an infinite for loop with preset time constants defined outside of the main function,
+which are defined as CT1, CT2, and CT3. The G2553 only has two LEDs, so only CT1 and CT2 
+are needed. Outside the loop, the long type variables i, j, and k are defined so inside the
+loop they can be incremented. Inside the loop, those three variables are incremented, and
+compared inside seperate if statements, which when the value of the variable is greater than
+the preset time constants, the number resets, and the LED is toggled. Changing the CTx numbers
+increases or decreases the delay. 
