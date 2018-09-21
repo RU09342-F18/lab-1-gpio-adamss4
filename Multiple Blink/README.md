@@ -1,5 +1,4 @@
 # Multiple Blink
-
 For the multiple blink, the MSP430G2553 and MSP432P401R were used. The code between the 
 two boards is similar, but there are some differences including how the watchdog timer
 is halted, how the pins are selected for GPIO mode, and the pins that actually have the

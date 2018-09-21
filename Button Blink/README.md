@@ -1,5 +1,4 @@
 # Button Blink
-
 The Button Blink was completed on the MSP430G2553 and FR2311. The code between the two
 is nearly identical, with the exception of the port of the button, the port of the LED,
 and how the pins are set up in GPIO mode. Both the G2553 and FR2311 have both the button
